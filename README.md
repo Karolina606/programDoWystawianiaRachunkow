@@ -9,10 +9,16 @@ Przewidzane są dwa typy użytkowników:
 Diagrams
 ---
 #### Diagram wymagań
-![alt text](https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/diagram_wymagan.jpg "req diagram")
+<img src="https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/wymagania.jpg" alt="req diagram" title="req diagram" width="150" height="100" />
+
+[comment]: <> (![alt text]&#40;https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/wymagania.jpg "req diagram"&#41;)
 
 #### Diagram przypadków użycia
-![alt text](https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/use_case.png "use case diagram")
+<img src="https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/use_case.png" alt="use case diagram" title="use case diagram" width="150" height="100" />
+
+[comment]: <> (![alt text]&#40;https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/use_case.png "use case diagram"&#41;)
 
 #### Diagram klas
-![alt text](https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/diagram_klas.png "class diagram")
+<img src="https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/diagram_klas.png" alt="class diagram" title="class diagram" width="150" height="100" />
+
+[comment]: <> (![alt text]&#40;https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/diagram_klas.png "class diagram"&#41;)
