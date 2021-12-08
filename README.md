@@ -9,10 +9,10 @@ Przewidzane są dwa typy użytkowników:
 Diagrams
 ---
 #### Diagram wymagań
-![alt text](https://github.com/Karolina606/Safari/blob/master/doc/diagrams/png/classDiagram.png "req diagram")
+![alt text](https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/diagram_wymagan.jpg "req diagram")
 
 #### Diagram przypadków użycia
-![alt text](https://github.com/Karolina606/Safari/blob/master/doc/diagrams/png/activityDiagram.png "use case diagram")
+![alt text](https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/use_case.png "use case diagram")
 
 #### Diagram klas
-![alt text](https://github.com/Karolina606/Safari/blob/master/doc/diagrams/png/sequenceDiagram.png "class diagram")
+![alt text](https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/diagram_klas.png "class diagram")
