@@ -9,16 +9,25 @@ Przewidzane są dwa typy użytkowników:
 Diagrams
 ---
 #### Diagram wymagań
-<img src="https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/wymagania.jpg" alt="req diagram" title="req diagram" width="150" height="100" />
 
-[comment]: <> (![alt text]&#40;https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/wymagania.jpg "req diagram"&#41;)
+[comment]: <> (<img src="https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/wymagania.jpg" alt="req diagram" title="req diagram" width="150" height="100" />)
+
+![req diagram](https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/wymagania.jpg#diagram)
 
 #### Diagram przypadków użycia
-<img src="https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/use_case.png" alt="use case diagram" title="use case diagram" width="150" height="100" />
 
-[comment]: <> (![alt text]&#40;https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/use_case.png "use case diagram"&#41;)
+[comment]: <> (<img src="https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/use_case.png" alt="use case diagram" title="use case diagram" width="150" height="100" />)
+
+![use case diagram](https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/use_case.png#diagram)
 
 #### Diagram klas
-<img src="https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/diagram_klas.png" alt="class diagram" title="class diagram" width="150" height="100" />
 
-[comment]: <> (![alt text]&#40;https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/diagram_klas.png "class diagram"&#41;)
+[comment]: <> (<img src="https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/diagram_klas.png" alt="class diagram" title="class diagram" width="150" height="100" />)
+
+![class diagram](https://github.com/Karolina606/programDoWystawianiaRachunkow/tree/master/diagrams/diagram_klas.jpg#diagram)
+
+img[src*="#diagram"] {
+    margin-left: auto;
+    margin-right: auto;
+    height:800px;
+}
