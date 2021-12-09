@@ -6,9 +6,12 @@ public class Magazyn {
 
 	private Collection<Produkt> produkty = new ArrayList<>();
 
-	public Produkt getProdukty() {
-		return (Produkt) this.produkty;
+	public List<Produkt> getProdukty() {
+		return (List<Produkt>) this.produkty;
 	}
+
+
+	public Magazyn() {}
 
 	/**
 	 *
@@ -23,8 +26,7 @@ public class Magazyn {
 	 * @param produkt
 	 */
 	public void dodajProdukt(Produkt produkt) {
-		// TODO - implement Magazyn.dodajProdukt
-		throw new UnsupportedOperationException();
+		produkty.add(produkt);
 	}
 
 	/**
@@ -32,8 +34,11 @@ public class Magazyn {
 	 * @param nazwa
 	 */
 	public void usunProdukt(String nazwa) {
-		// TODO - implement Magazyn.usunProdukt
-		throw new UnsupportedOperationException();
+		for(Produkt produkt: produkty){
+			if (produkt.getNazwa().equals(nazwa)){
+				produkty.remove(produkt);
+			}
+		}
 	}
 
 	/**
@@ -41,10 +46,12 @@ public class Magazyn {
 	 * @param nazwa
 	 */
 	public Produkt znadzProdukt(String nazwa) {
-		// TODO - implement Magazyn.znadzProdukt
-		throw new UnsupportedOperationException();
+		Produkt znalezionyProdukt = null;
+		for(Produkt produkt: produkty){
+			if (produkt.getNazwa().equals(nazwa)){
+				znalezionyProdukt = produkt;
+			}
+		}
+		return znalezionyProdukt;
 	}
-
-	public Magazyn() {}
-
 }
