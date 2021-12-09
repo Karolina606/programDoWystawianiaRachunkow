@@ -6,6 +6,11 @@ public class Zakup extends Produkt {
 
 	Rabat rabat;
 
+	public Zakup(Produkt produkt, int liczba, Rabat rabat) {
+		super(produkt.getNazwa(), liczba, produkt.getCena(), produkt.getKategoriaPodatkowa());
+		this.rabat = rabat;
+	}
+
 	public void setRabat(Rabat rabat) {
 		this.rabat = rabat;
 	}
@@ -14,7 +19,23 @@ public class Zakup extends Produkt {
 		return this.rabat;
 	}
 
-	public Zakup(Produkt produkt, int liczba) {
-		super(produkt.getNazwa(), liczba, produkt.getCena(), produkt.getKategoriaPodatkowa());}
+	@Override
+	public String toString() {
+		if (rabat != null){
+			return "Zakup{" +
+					"nazwa='" + nazwa + '\'' +
+					", liczba=" + liczba +
+					", cena=" + cena +
+					", kategoriaPodatkowa='" + kategoriaPodatkowa +
+					", rabat=" + rabat.getWartoscRabatu()  + '\'' +
+					'}';
+		}else{
+			return "Zakup{" +
+					"nazwa='" + nazwa + '\'' +
+					", liczba=" + liczba +
+					", cena=" + cena +
+					", kategoriaPodatkowa='" + kategoriaPodatkowa + '\'';
+		}
 
+	}
 }

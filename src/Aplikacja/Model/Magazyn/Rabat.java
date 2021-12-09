@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Rabat {
 
-	private int id_rabatu;
+	private int rabatId;
 	private static int licznikRabatow = 0;
 	private float wartoscRabatu;
 	private List<String> listaNazwProduktowZRabatem = new ArrayList<>();
@@ -19,12 +19,12 @@ public class Rabat {
 	public Rabat(float wartosc, List<String> nazwyProduktow) {
 		this.wartoscRabatu = wartosc;
 		this.listaNazwProduktowZRabatem = nazwyProduktow;
-		this.id_rabatu = licznikRabatow;
+		this.rabatId = licznikRabatow;
 		licznikRabatow += 1;
 	}
 
-	public int getId_rabatu() {
-		return id_rabatu;
+	public int getRabatId() {
+		return rabatId;
 	}
 
 	public float getWartoscRabatu() {
@@ -51,10 +51,17 @@ public class Rabat {
 		this.listaNazwProduktowZRabatem = listaNazwProduktowZRabatem;
 	}
 
+	public boolean sprawdzCzyProduktMaRabat(Produkt produkt){
+		if(listaNazwProduktowZRabatem.contains(produkt.getNazwa())){
+			return true;
+		}
+		return false;
+	}
+
 	@Override
 	public String toString() {
 		return "Rabat{" +
-				"id_rabatu=" + id_rabatu +
+				"id_rabatu=" + rabatId +
 				", wartoscRabatu=" + wartoscRabatu +
 				", listaNazwProduktowZRabatem=" + listaNazwProduktowZRabatem +
 				'}';
