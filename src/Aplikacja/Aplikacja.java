@@ -7,9 +7,8 @@ import Aplikacja.Model.Zakupy.*;
 public class Aplikacja {
 
 	private static Magazyn magazyn = new Magazyn();
-	private static Collection<Rabat> rabaty = new ArrayList<>();
-	private Collection<Rachunek> rachunki = new ArrayList<>();
-	private boolean czyKoniecZakupow;
+	private static List<Rabat> rabaty = new ArrayList<>();
+	private static List<Rachunek> rachunki = new ArrayList<>();
 	// Konsola jako wejście programu
 	private static Scanner programInput = new Scanner(System.in).useLocale(Locale.US);
 
@@ -35,7 +34,7 @@ public class Aplikacja {
 		if (kindOfUser.equals("pracownik")){
 			zarzadzaj();
 		}else if (kindOfUser.equals("klient")){
-
+			rozpocznijZakupy();
 		}else{
 			System.out.println("Niestety nie ma tego typu użytkownika. Do zobaczenia kolejnym razem!");
 		}
@@ -77,14 +76,51 @@ public class Aplikacja {
 	}
 
 
-	public void rozpocznijZakupy() {
-		// TODO - implement Aplikacja.rozpocznijZakupy
-		throw new UnsupportedOperationException();
+	public static void rozpocznijZakupy() {
+		// Stworz nowy rachunek
+		Rachunek nowyRachunek = new Rachunek();
+		rachunki.add(nowyRachunek);
+
+		// Zmienne pomocnicze
+		Integer choosenActivity;
+		Boolean czyKoniecZakupow = false;
+		
+		while(!czyKoniecZakupow) {
+			choosenActivity = pokazMenu("klient");
+
+			// Wybierz czynnosc
+			switch (choosenActivity) {
+				case 1:
+					// Pokaz produkty
+					pokazProdukty();
+					break;
+				case 2:
+					// Dodaj produkt do koszyka
+					wybierzProdukt();
+					break;
+				case 3:
+					// Pokaz koszyk
+					pokazKoszyk();
+					break;
+				case 4:
+					// Zakoncz zakupy
+					potwierdzZakup();
+					czyKoniecZakupow = true;
+					break;
+				default:
+					System.out.println("Nie ma takiego polecenia");
+					break;
+			}
+		}
 	}
 
-	public Rachunek utworzNowyRachunek() {
-		// TODO - implement Aplikacja.utworzNowyRachunek
-		throw new UnsupportedOperationException();
+	private static void pokazKoszyk() {
+		System.out.println("######################## Twoj koszyk #######################");
+		Rachunek ostatniRachunek = rachunki.get(rachunki.size()-1);
+
+		for(Zakup zakup: ostatniRachunek.getKoszyk()){
+			System.out.println(zakup);
+		}
 	}
 
 	/**
@@ -93,8 +129,7 @@ public class Aplikacja {
 	 * @param produkt
 	 */
 	public boolean czyProduktNaRachunku(Rachunek rachunek, Produkt produkt) {
-		// TODO - implement Aplikacja.czyProduktNaRachunku
-		throw new UnsupportedOperationException();
+		return rachunek.czyProduktNaRachunku(produkt);
 	}
 
 	public int podajIlosc() {
@@ -106,9 +141,12 @@ public class Aplikacja {
 	 *
 	 * @param ilosc
 	 */
-	public boolean sprawdzCzyIloscJestDostępna(int ilosc) {
-		// TODO - implement Aplikacja.sprawdzCzyIloscJestDostępna
-		throw new UnsupportedOperationException();
+	public static boolean sprawdzCzyIloscJestDostępna(Produkt produkt, int ilosc) {
+		if (produkt.getLiczba() >= ilosc){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public boolean zapytajCzyKoniecZakupow() {
@@ -118,21 +156,72 @@ public class Aplikacja {
 
 	/**
 	 *
-	 * @param nazwa
 	 */
-	public void wybierzProdukt(String nazwa) {
-		// TODO - implement Aplikacja.wybierzProdukt
-		throw new UnsupportedOperationException();
+	public static void wybierzProdukt() {
+		System.out.println("######################## Wybierasz produkt #######################");
+
+		System.out.print("Podaj nazwe produktu: ");
+		programInput.nextLine();
+		String nazwaProduktu = programInput.nextLine();
+
+		System.out.print("Podaj ilosc: ");
+		int ilosc = Integer.parseInt(programInput.nextLine());
+
+		Produkt produktDoZakupu = magazyn.znadzProdukt(nazwaProduktu);
+		Rachunek obecnyRachunek = rachunki.get(rachunki.size()-1);
+
+		if(produktDoZakupu != null){
+			if (sprawdzCzyIloscJestDostępna(produktDoZakupu, ilosc)){
+				if(obecnyRachunek.czyProduktNaRachunku(produktDoZakupu)){
+					obecnyRachunek.zwiekszIloscZakupu(produktDoZakupu, ilosc);
+				}
+				else {
+					Rabat znalezionyRabat = null;
+					for(Rabat rabat: rabaty){
+						if(rabat.sprawdzCzyProduktMaRabat(produktDoZakupu)){
+							znalezionyRabat = rabat;
+							break;
+						}
+					}
+					obecnyRachunek.dodajZakup(produktDoZakupu, ilosc, znalezionyRabat);
+					produktDoZakupu.zmniejszIlosc(ilosc);
+				}
+			}else{
+				System.out.println("Taka ilość nie jest dostepna");
+			}
+		}else{
+			System.out.println("Niestety chyba nie ma takiego produktu");
+		}
 	}
 
-	public void potwierdzZakup() {
-		// TODO - implement Aplikacja.potwierdzZakup
-		throw new UnsupportedOperationException();
+	public static void potwierdzZakup() {
+		System.out.println("######################## Koniec zakupow #######################");
+		DaneDostawy daneDostawy = podajDaneDostawy();
+		Rachunek obecnyRachunek = rachunki.get(rabaty.size()-1);
+		wystawRachunek(obecnyRachunek, daneDostawy);
 	}
 
-	private DaneDostawy podajDaneDostawy() {
-		// TODO - implement Aplikacja.podajDaneDostawy
-		throw new UnsupportedOperationException();
+	private static DaneDostawy podajDaneDostawy() {
+		System.out.print("Imie: ");
+		programInput.nextLine();
+		String imie = programInput.nextLine();
+		System.out.print("Nazwisko: ");
+		String nazwisko = programInput.nextLine();
+		System.out.print("Miejscowosc: ");
+		String miejscowosc = programInput.nextLine();
+		System.out.print("Kod pocztowy: ");
+		String kodPocztowy = programInput.nextLine();
+		System.out.print("Ulica: ");
+		String ulica = programInput.nextLine();
+		System.out.print("Numer domu: ");
+		String nrDomu = programInput.nextLine();
+		System.out.print("Numer mieszkania: ");
+		String nrMieszkania = programInput.nextLine();
+		System.out.print("Numer telefonu: ");
+		String nrTelefonu = programInput.nextLine();
+
+		DaneDostawy noweDane = new DaneDostawy(imie, nazwisko, miejscowosc, kodPocztowy, ulica,  nrDomu, nrMieszkania, nrTelefonu);
+		return noweDane;
 	}
 
 	/**
@@ -140,9 +229,8 @@ public class Aplikacja {
 	 * @param rachunek
 	 * @param daneDostawy
 	 */
-	private void wystawRachunek(Rachunek rachunek, DaneDostawy daneDostawy) {
-		// TODO - implement Aplikacja.wystawRachunek
-		throw new UnsupportedOperationException();
+	private static void wystawRachunek(Rachunek rachunek, DaneDostawy daneDostawy) {
+		rachunek.wystaw(daneDostawy);
 	}
 
 	public static void zarzadzaj() {
@@ -272,7 +360,7 @@ public class Aplikacja {
 		int numer = programInput.nextInt();
 
 		for (Rabat rabat: rabaty){
-			if (rabat.getId_rabatu() == numer){
+			if (rabat.getRabatId() == numer){
 				rabaty.remove(rabat);
 				System.out.println("Rabat został usunięty");
 				break;
