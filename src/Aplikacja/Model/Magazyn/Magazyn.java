@@ -23,10 +23,15 @@ public class Magazyn {
 
 	/**
 	 *
-	 * @param produkt
 	 */
-	public void dodajProdukt(Produkt produkt) {
-		produkty.add(produkt);
+	public void dodajProdukt(Produkt produktDoDodania) {
+		for(Produkt produkt: produkty){
+			if (produkt.getNazwa().equals(produktDoDodania.getNazwa())){
+				produkt.zwiekszIlosc(produktDoDodania.getLiczba());
+				return;
+			}
+		}
+		produkty.add(produktDoDodania);
 	}
 
 	/**
@@ -37,6 +42,7 @@ public class Magazyn {
 		for(Produkt produkt: produkty){
 			if (produkt.getNazwa().equals(nazwa)){
 				produkty.remove(produkt);
+				break;
 			}
 		}
 	}

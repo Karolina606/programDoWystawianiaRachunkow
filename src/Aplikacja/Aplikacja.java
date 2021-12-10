@@ -48,11 +48,12 @@ public class Aplikacja {
 			System.out.println("############################## MENU ##############################");
 			System.out.println("1. Pokaz produkty");
 			System.out.println("2. Dodaj produkt");
-			System.out.println("3. Zmien cene");
-			System.out.println("4. Pokaz rabaty");
-			System.out.println("5. Dodaj rabat");
-			System.out.println("6. Usun rabat");
-			System.out.println("7. Koniec zarzadzania");
+			System.out.println("3. Usun produkt");
+			System.out.println("4. Zmien cene");
+			System.out.println("5. Pokaz rabaty");
+			System.out.println("6. Dodaj rabat");
+			System.out.println("7. Usun rabat");
+			System.out.println("8. Koniec zarzadzania");
 
 		} else if (uzytkownik.equals("klient")){
 			System.out.println("############################## MENU ##############################");
@@ -254,20 +255,24 @@ public class Aplikacja {
 					dodajProdukt();
 					break;
 				case 3:
+					// Usun
+					usunProdukt();
+					break;
+				case 4:
 					// Zmien cene
 					zmienCene();
 					break;
-				case 4:
+				case 5:
 					// Pokaz rabaty
 					pokazRabaty();
 					break;
-				case 5:
+				case 6:
 					dodajRabat();
 					break;
-				case 6:
+				case 7:
 					usunRabat();
 					break;
-				case 7:
+				case 8:
 					continueProgram = false;
 					break;
 				default:
@@ -287,20 +292,44 @@ public class Aplikacja {
 
 		System.out.println("######################## Dodajesz Produkty #######################");
 		System.out.print("Nazwa: ");
+		programInput.nextLine();
 		nazwa = programInput.nextLine();
 
 		System.out.print("Liczba: ");
 		liczba = programInput.nextInt();
 
-		System.out.print("Cena: ");
-		cena = programInput.nextFloat();
+		if (magazyn.znadzProdukt(nazwa) != null){
+			Produkt nowyProdukt = new Produkt(nazwa, liczba, 0, "");
+			magazyn.dodajProdukt(nowyProdukt);
+		}else{
+			System.out.print("Cena: ");
+			cena = programInput.nextFloat();
 
-		System.out.print("Kategoria podatkowa: ");
-		kategoriaPodatkowa = programInput.nextLine();
+			System.out.print("Kategoria podatkowa: ");
+			programInput.nextLine();
+			kategoriaPodatkowa = programInput.nextLine();
 
-		// Stworz nowy produkt
-		Produkt nowyProdukt = new Produkt(nazwa, liczba, cena, kategoriaPodatkowa);
-		magazyn.dodajProdukt(nowyProdukt);
+			// Stworz nowy produkt
+			Produkt nowyProdukt = new Produkt(nazwa, liczba, cena, kategoriaPodatkowa);
+			magazyn.dodajProdukt(nowyProdukt);
+		}
+	}
+
+	public static void usunProdukt() {
+		System.out.println("######################## Usuwasz produkt #######################");
+		System.out.print("Nazwa produktu: ");
+		programInput.nextLine();
+		String nazwa = programInput.nextLine();
+
+		List<Produkt> produkty = magazyn.getProdukty();
+		for (Produkt produkt: produkty){
+			if (produkt.getNazwa().equals(nazwa)){
+				magazyn.usunProdukt(produkt.getNazwa());
+				System.out.println("Produkt został usunięty");
+				return ;
+			}
+		}
+		System.out.println("Produkt chyba nie został usuniety, mozliwa zla nazwa");
 	}
 
 	/**
@@ -363,9 +392,10 @@ public class Aplikacja {
 			if (rabat.getRabatId() == numer){
 				rabaty.remove(rabat);
 				System.out.println("Rabat został usunięty");
-				break;
+				return ;
 			}
 		}
+		System.out.println("Rabat chyba nie został usuniety, sprawdz indeks");
 	}
 
 	public static void inicjacja(){
