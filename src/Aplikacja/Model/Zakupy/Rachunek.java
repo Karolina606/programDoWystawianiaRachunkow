@@ -24,19 +24,18 @@ public class Rachunek implements Serializable {
 	private DaneDostawy daneDostawy;
 
 	public Rachunek() {
-		rachunekId = licznikRachunkow;
 		licznikRachunkow += 1;
+		rachunekId = licznikRachunkow;
+	}
+
+	public int getRachunekId() {
+		return rachunekId;
 	}
 
 	public void zwiekszIloscZakupu(Produkt produkt, int ilosc) {
 		produkt.zwiekszIlosc(ilosc);
 	}
 
-	/**
-	 *
-	 * @param produkt
-	 * @param ilosc
-	 */
 	public void dodajZakup(Produkt produkt, int ilosc, Rabat rabat) {
 		Zakup nowyZakup = new Zakup(produkt, ilosc, rabat);
 
@@ -52,10 +51,6 @@ public class Rachunek implements Serializable {
 		}
 	}
 
-	/**
-	 *
-	 * @param dane
-	 */
 	public void wystaw(DaneDostawy dane) {
 		this.daneDostawy = dane;
 		float podatekA = 0;
@@ -117,10 +112,6 @@ public class Rachunek implements Serializable {
 		System.out.println(wystawionyRachunek);
 	}
 
-	/**
-	 *
-	 * @param produnkt
-	 */
 	public boolean czyProduktNaRachunku(Produkt produnkt) {
 		for(Zakup zakup: koszyk){
 			if (zakup.getNazwa() == produnkt.getNazwa()){
@@ -128,6 +119,10 @@ public class Rachunek implements Serializable {
 			}
 		}
 		return false;
+	}
+
+	public static void ustawLicznikRachunkow(int nowyLicznik){
+		licznikRachunkow = nowyLicznik;
 	}
 
 	public List<Zakup> getKoszyk() {

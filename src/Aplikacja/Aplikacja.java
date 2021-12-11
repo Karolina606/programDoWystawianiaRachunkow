@@ -420,6 +420,7 @@ public class Aplikacja {
 			while((rachunek = (Rachunek) inputStream.readObject())  != null){
 				rachunki.add(rachunek);
 			}
+			Rachunek.ustawLicznikRachunkow(rachunki.get(rachunki.size()-1).getRachunekId() + 1);
 			inputStream.close();
 		} catch (Exception ex) // zgłasza wyjątki
 		{}
@@ -435,6 +436,7 @@ public class Aplikacja {
 			while((rabat = (Rabat) inputStream.readObject())  != null){
 				rabaty.add(rabat);
 			}
+			Rabat.ustawLicznikRabatow(rabaty.get(rabaty.size()-1).getRabatId() + 1);
 			inputStream.close();
 
 		} catch (Exception ex) // zgłasza wyjątki

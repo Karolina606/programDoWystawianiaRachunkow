@@ -15,8 +15,9 @@ public class Rabat implements Serializable {
 	public Rabat(float wartosc, List<String> nazwyProduktow) {
 		this.wartoscRabatu = wartosc;
 		this.listaNazwProduktowZRabatem = nazwyProduktow;
-		this.rabatId = licznikRabatow;
 		licznikRabatow += 1;
+		this.rabatId = licznikRabatow;
+
 	}
 
 	public int getRabatId() {
@@ -44,6 +45,10 @@ public class Rabat implements Serializable {
 			return true;
 		}
 		return false;
+	}
+
+	public static void ustawLicznikRabatow(int nowyLicznik){
+		licznikRabatow = nowyLicznik;
 	}
 
 	@Override
