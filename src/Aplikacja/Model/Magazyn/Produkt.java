@@ -1,19 +1,14 @@
 package Aplikacja.Model.Magazyn;
 
-public class Produkt {
+import java.io.Serializable;
+
+public class Produkt implements Serializable {
 
 	protected String nazwa;
 	protected int liczba;
 	protected float cena;
 	protected String kategoriaPodatkowa;
 
-	/**
-	 *
-	 * @param nazwa
-	 * @param liczba
-	 * @param cena
-	 * @param kategoriaPodatkowa
-	 */
 	public Produkt(String nazwa, int liczba, float cena, String kategoriaPodatkowa) {
 		this.nazwa = nazwa;
 		this.liczba = liczba;
@@ -25,22 +20,13 @@ public class Produkt {
 		this.cena = nowaCena;
 	}
 
-	/**
-	 *
-	 * @param ilosc
-	 */
 	public void zwiekszIlosc(int ilosc) {
 		this.liczba += ilosc;
 	}
 
-	/**
-	 *
-	 * @param ilosc
-	 */
 	public void zmniejszIlosc(int ilosc) {
 		this.liczba -= ilosc;
 	}
-
 
 	public String getNazwa() {
 		return this.nazwa;

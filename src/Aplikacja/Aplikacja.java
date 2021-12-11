@@ -1,6 +1,11 @@
 package Aplikacja;
 
 import Aplikacja.Model.Magazyn.*;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 import Aplikacja.Model.Zakupy.*;
 
@@ -12,10 +17,7 @@ public class Aplikacja {
 	// Konsola jako wejście programu
 	private static Scanner programInput = new Scanner(System.in).useLocale(Locale.US);
 
-	/**
-	 *
-	 * @param args
-	 */
+
 	public static void main(String[] args){
 		// Rozpoczęcie działania aplikacji
 		System.out.println("############################## Dzień dobry ##############################");
@@ -28,7 +30,8 @@ public class Aplikacja {
 		System.out.println(kindOfUser);
 
 		// Prosta inicjalizacja
-		inicjacja();
+		// inicjacja();
+		wczytaj();
 
 		// Podejmij działania w zależności od typu klienta
 		if (kindOfUser.equals("pracownik")){
@@ -107,6 +110,7 @@ public class Aplikacja {
 					// Zakoncz zakupy
 					potwierdzZakup();
 					czyKoniecZakupow = true;
+					zapisz();
 					break;
 				default:
 					System.out.println("Nie ma takiego polecenia");
@@ -124,11 +128,6 @@ public class Aplikacja {
 		}
 	}
 
-	/**
-	 *
-	 * @param rachunek
-	 * @param produkt
-	 */
 	public boolean czyProduktNaRachunku(Rachunek rachunek, Produkt produkt) {
 		return rachunek.czyProduktNaRachunku(produkt);
 	}
@@ -138,10 +137,6 @@ public class Aplikacja {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 *
-	 * @param ilosc
-	 */
 	public static boolean sprawdzCzyIloscJestDostępna(Produkt produkt, int ilosc) {
 		if (produkt.getLiczba() >= ilosc){
 			return true;
@@ -155,9 +150,6 @@ public class Aplikacja {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 *
-	 */
 	public static void wybierzProdukt() {
 		System.out.println("######################## Wybierasz produkt #######################");
 
@@ -198,7 +190,7 @@ public class Aplikacja {
 	public static void potwierdzZakup() {
 		System.out.println("######################## Koniec zakupow #######################");
 		DaneDostawy daneDostawy = podajDaneDostawy();
-		Rachunek obecnyRachunek = rachunki.get(rabaty.size()-1);
+		Rachunek obecnyRachunek = rachunki.get(rachunki.size()-1);
 		wystawRachunek(obecnyRachunek, daneDostawy);
 	}
 
@@ -225,11 +217,6 @@ public class Aplikacja {
 		return noweDane;
 	}
 
-	/**
-	 *
-	 * @param rachunek
-	 * @param daneDostawy
-	 */
 	private static void wystawRachunek(Rachunek rachunek, DaneDostawy daneDostawy) {
 		rachunek.wystaw(daneDostawy);
 	}
@@ -274,6 +261,7 @@ public class Aplikacja {
 					break;
 				case 8:
 					continueProgram = false;
+					zapisz();
 					break;
 				default:
 					System.out.println("Nie ma takiego polecenia");
@@ -281,9 +269,7 @@ public class Aplikacja {
 			}
 		}
 	}
-	/**
-	 *
-	 */
+
 	public static void dodajProdukt() {
 		// Dodaj produkt
 		String nazwa, kategoriaPodatkowa;
@@ -332,9 +318,6 @@ public class Aplikacja {
 		System.out.println("Produkt chyba nie został usuniety, mozliwa zla nazwa");
 	}
 
-	/**
-	 *
-	 */
 	public static void zmienCene() {
 		String nazwa, kategoriaPodatkowa;
 		float cena;
@@ -363,9 +346,6 @@ public class Aplikacja {
 		}
 	}
 
-	/**
-	 *
-	 */
 	public static void dodajRabat() {
 		System.out.println("######################## Dodajesz rabat #######################");
 		System.out.print("Wartosc rabatu: ");
@@ -380,9 +360,7 @@ public class Aplikacja {
 		rabaty.add(nowyRabat);
 	}
 
-	/**
-	 *
-	 */
+
 	public static void usunRabat() {
 		System.out.println("######################## Usuwasz rabat #######################");
 		System.out.print("Numer rabatu: ");
@@ -425,6 +403,92 @@ public class Aplikacja {
 		for(int i = 0; i < iloscRabatow; i++){
 			nowyRabat = new Rabat(wartoscRabatu.get(i), Collections.singletonList(listaProduktowZRabatem.get(i)));
 			rabaty.add(nowyRabat);
+		}
+	}
+
+	public static void wczytaj(){
+		ObjectInputStream inputStream;
+		try
+		{
+			// RACHUNKI
+			// tworzy strumień do wczytania
+			inputStream = new ObjectInputStream(
+					new FileInputStream("rachunki.ser")
+			);
+
+			Rachunek rachunek;
+			while((rachunek = (Rachunek) inputStream.readObject())  != null){
+				rachunki.add(rachunek);
+			}
+			inputStream.close();
+		} catch (Exception ex) // zgłasza wyjątki
+		{}
+
+		try{
+			// RABATY
+			// tworzy strumień do wczytania
+			inputStream = new ObjectInputStream(
+					new FileInputStream("rabaty.ser")
+			);
+
+			Rabat rabat;
+			while((rabat = (Rabat) inputStream.readObject())  != null){
+				rabaty.add(rabat);
+			}
+			inputStream.close();
+
+		} catch (Exception ex) // zgłasza wyjątki
+		{}
+
+		try{
+			// MAGAZYN
+			// tworzy strumień do zapisu
+			inputStream = new ObjectInputStream(
+					new FileInputStream("magazyn.ser")
+			);
+			magazyn = (Magazyn) inputStream.readObject();
+			inputStream.close(); // zamknięcie strumienia
+
+		} catch (Exception ex) // zgłasza wyjątki
+		{}
+	}
+
+	public static void zapisz(){
+		try
+		{
+			// RACHUNKI
+			// tworzy strumień do zapisu
+			ObjectOutputStream outputStream = new ObjectOutputStream(
+					new FileOutputStream("rachunki.ser")
+			);
+			for(Rachunek rachunek: rachunki){
+				outputStream.writeObject(rachunek); // zapisanie obiektu
+			}
+			outputStream.close(); // zamknięcie strumienia
+
+
+			// RABATY
+			// tworzy strumień do zapisu
+			outputStream = new ObjectOutputStream(
+					new FileOutputStream("rabaty.ser")
+			);
+			for(Rabat rabat: rabaty){
+				outputStream.writeObject(rabat); // zapisanie obiektu
+			}
+			outputStream.close(); // zamknięcie strumienia
+
+
+			// MAGAZYN
+			// tworzy strumień do zapisu
+			outputStream = new ObjectOutputStream(
+					new FileOutputStream("magazyn.ser")
+			);
+			outputStream.writeObject(magazyn);
+			outputStream.close(); // zamknięcie strumienia
+
+		} catch (Exception ex) // zgłasza wyjątki
+		{
+			ex.printStackTrace();
 		}
 	}
 

@@ -1,8 +1,13 @@
 package Aplikacja.Model.Magazyn;
 
+import Aplikacja.Model.Zakupy.Rachunek;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
-public class Magazyn {
+public class Magazyn implements Serializable {
 
 	private Collection<Produkt> produkty = new ArrayList<>();
 
@@ -13,17 +18,10 @@ public class Magazyn {
 
 	public Magazyn() {}
 
-	/**
-	 *
-	 * @param produkty
-	 */
 	public void setProdukty(Produkt produkty) {
 		this.produkty = (Collection<Produkt>) produkty;
 	}
 
-	/**
-	 *
-	 */
 	public void dodajProdukt(Produkt produktDoDodania) {
 		for(Produkt produkt: produkty){
 			if (produkt.getNazwa().equals(produktDoDodania.getNazwa())){
@@ -34,10 +32,6 @@ public class Magazyn {
 		produkty.add(produktDoDodania);
 	}
 
-	/**
-	 *
-	 * @param nazwa
-	 */
 	public void usunProdukt(String nazwa) {
 		for(Produkt produkt: produkty){
 			if (produkt.getNazwa().equals(nazwa)){
@@ -47,10 +41,6 @@ public class Magazyn {
 		}
 	}
 
-	/**
-	 *
-	 * @param nazwa
-	 */
 	public Produkt znadzProdukt(String nazwa) {
 		Produkt znalezionyProdukt = null;
 		for(Produkt produkt: produkty){

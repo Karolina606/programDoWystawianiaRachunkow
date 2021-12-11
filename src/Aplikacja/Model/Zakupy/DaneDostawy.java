@@ -1,6 +1,8 @@
 package Aplikacja.Model.Zakupy;
 
-public class DaneDostawy {
+import java.io.Serializable;
+
+public class DaneDostawy implements Serializable {
 
 	public String imie;
 	public String nazwisko;
@@ -11,14 +13,6 @@ public class DaneDostawy {
 	public String nrMieszkania;
 	public String nrTelefonu;
 
-	/**
-	 *  @param imie
-	 * @param nazwisko
-	 * @param miejscowosc
-	 * @param kod_pocztowy
-	 * @param ulica
-	 * @param nrDomu
-	 */
 	public DaneDostawy(String imie, String nazwisko, String miejscowosc, String kod_pocztowy, String ulica, String nrDomu, String nrMieszkania, String nrTelefonu) {
 		this.imie = imie;
 		this.nazwisko = nazwisko;
@@ -30,4 +24,11 @@ public class DaneDostawy {
 		this.nrTelefonu = nrTelefonu;
 	}
 
+	@Override
+	public String toString() {
+		return imie + " " + nazwisko + "\n"
+				+ miejscowosc + ", " + kodPocztowy + "\n"
+				+ ulica + " " + nrDomu + " " + nrMieszkania + "\n"
+				+ nrTelefonu + "\n";
+	}
 }

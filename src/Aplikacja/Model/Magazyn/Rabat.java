@@ -1,9 +1,10 @@
 package Aplikacja.Model.Magazyn;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rabat {
+public class Rabat implements Serializable {
 
 	private int rabatId;
 	private static int licznikRabatow = 0;
@@ -11,11 +12,6 @@ public class Rabat {
 	private List<String> listaNazwProduktowZRabatem = new ArrayList<>();
 
 
-	/**
-	 *
-	 * @param wartosc
-	 * @param nazwyProduktow
-	 */
 	public Rabat(float wartosc, List<String> nazwyProduktow) {
 		this.wartoscRabatu = wartosc;
 		this.listaNazwProduktowZRabatem = nazwyProduktow;
@@ -31,10 +27,6 @@ public class Rabat {
 		return this.wartoscRabatu;
 	}
 
-	/**
-	 *
-	 * @param wartoscRabatu
-	 */
 	public void setWartoscRabatu(float wartoscRabatu) {
 		this.wartoscRabatu = wartoscRabatu;
 	}
@@ -43,10 +35,6 @@ public class Rabat {
 		return this.listaNazwProduktowZRabatem;
 	}
 
-	/**
-	 *
-	 * @param listaNazwProduktowZRabatem
-	 */
 	public void setListaNazwProduktowZRabatem(List<String> listaNazwProduktowZRabatem) {
 		this.listaNazwProduktowZRabatem = listaNazwProduktowZRabatem;
 	}
