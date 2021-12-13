@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Magazyn implements Serializable {
 
-	private Collection<Produkt> produkty = new ArrayList<>();
+	private List<Produkt> produkty = new ArrayList<>();
 
 	public List<Produkt> getProdukty() {
 		return (List<Produkt>) this.produkty;
@@ -19,7 +19,7 @@ public class Magazyn implements Serializable {
 	public Magazyn() {}
 
 	public void setProdukty(Produkt produkty) {
-		this.produkty = (Collection<Produkt>) produkty;
+		this.produkty = (List<Produkt>) produkty;
 	}
 
 	public void dodajProdukt(Produkt produktDoDodania) {

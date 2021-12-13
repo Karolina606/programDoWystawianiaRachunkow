@@ -4,7 +4,7 @@ import Aplikacja.Model.Magazyn.*;
 
 public class Zakup extends Produkt {
 
-	Rabat rabat;
+	private Rabat rabat;
 
 	public Zakup(Produkt produkt, int liczba, Rabat rabat) {
 		super(produkt.getNazwa(), liczba, produkt.getCena(), produkt.getKategoriaPodatkowa());

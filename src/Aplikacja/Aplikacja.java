@@ -121,7 +121,7 @@ public class Aplikacja {
 		}
 	}
 
-	private void pokazKoszyk() {
+	public void pokazKoszyk() {
 		System.out.println("######################## Twoj koszyk #######################");
 		Rachunek ostatniRachunek = rachunki.get(rachunki.size()-1);
 
@@ -139,7 +139,7 @@ public class Aplikacja {
 //		throw new UnsupportedOperationException();
 //	}
 
-	public boolean sprawdzCzyIloscJestDostępna(Produkt produkt, int ilosc) {
+	public boolean sprawdzCzyIloscJestDostepna(Produkt produkt, int ilosc) {
 		if (produkt.getLiczba() >= ilosc){
 			return true;
 		}else{
@@ -166,7 +166,7 @@ public class Aplikacja {
 		Rachunek obecnyRachunek = rachunki.get(rachunki.size()-1);
 
 		if(produktDoZakupu != null){
-			if (sprawdzCzyIloscJestDostępna(produktDoZakupu, ilosc)){
+			if (sprawdzCzyIloscJestDostepna(produktDoZakupu, ilosc)){
 				if(obecnyRachunek.czyProduktNaRachunku(produktDoZakupu)){
 					obecnyRachunek.zwiekszIloscZakupu(produktDoZakupu, ilosc);
 				}
