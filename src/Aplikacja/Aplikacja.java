@@ -11,14 +11,16 @@ import Aplikacja.Model.Zakupy.*;
 
 public class Aplikacja {
 
-	private static Magazyn magazyn = new Magazyn();
-	private static List<Rabat> rabaty = new ArrayList<>();
-	private static List<Rachunek> rachunki = new ArrayList<>();
+	private Magazyn magazyn = new Magazyn();
+	private List<Rabat> rabaty = new ArrayList<>();
+	private List<Rachunek> rachunki = new ArrayList<>();
 	// Konsola jako wejście programu
-	private static Scanner programInput = new Scanner(System.in).useLocale(Locale.US);
+	private Scanner programInput = new Scanner(System.in).useLocale(Locale.US);
 
 
 	public static void main(String[] args){
+		Aplikacja app = new Aplikacja();
+
 		// Rozpoczęcie działania aplikacji
 		System.out.println("############################## Dzień dobry ##############################");
 
@@ -26,26 +28,26 @@ public class Aplikacja {
 		String kindOfUser;
 		System.out.println("Jesteś pracownikiem czy klientem?");
 		System.out.print("Wpisz \"pracownik\" dla pracownika lub \"klient\" dla klienta: ");
-		kindOfUser = programInput.nextLine();
+		kindOfUser = app.programInput.nextLine();
 		System.out.println(kindOfUser);
 
 		// Prosta inicjalizacja
 		// inicjacja();
-		wczytaj();
+		app.wczytaj();
 
 		// Podejmij działania w zależności od typu klienta
 		if (kindOfUser.equals("pracownik")){
-			zarzadzaj();
+			app.zarzadzaj();
 		}else if (kindOfUser.equals("klient")){
-			rozpocznijZakupy();
+			app.rozpocznijZakupy();
 		}else{
 			System.out.println("Niestety nie ma tego typu użytkownika. Do zobaczenia kolejnym razem!");
 		}
 
 	}
 
-	public static Integer pokazMenu(String uzytkownik){
-		Integer choosenActivity = -1;
+	public int pokazMenu(String uzytkownik){
+		int choosenActivity = -1;
 
 		if (uzytkownik.equals("pracownik")) {
 			System.out.println("############################## MENU ##############################");
@@ -71,7 +73,7 @@ public class Aplikacja {
 		return choosenActivity;
 	}
 
-	public static void pokazProdukty() {
+	public void pokazProdukty() {
 		System.out.println("######################## Produkty #######################");
 		List<Produkt> produkty = (List<Produkt>) magazyn.getProdukty();
 		for (Produkt produkt: produkty){
@@ -80,14 +82,14 @@ public class Aplikacja {
 	}
 
 
-	public static void rozpocznijZakupy() {
+	public void rozpocznijZakupy() {
 		// Stworz nowy rachunek
 		Rachunek nowyRachunek = new Rachunek();
 		rachunki.add(nowyRachunek);
 
 		// Zmienne pomocnicze
-		Integer choosenActivity;
-		Boolean czyKoniecZakupow = false;
+		int choosenActivity;
+		boolean czyKoniecZakupow = false;
 		
 		while(!czyKoniecZakupow) {
 			choosenActivity = pokazMenu("klient");
@@ -119,7 +121,7 @@ public class Aplikacja {
 		}
 	}
 
-	private static void pokazKoszyk() {
+	private void pokazKoszyk() {
 		System.out.println("######################## Twoj koszyk #######################");
 		Rachunek ostatniRachunek = rachunki.get(rachunki.size()-1);
 
@@ -132,12 +134,12 @@ public class Aplikacja {
 		return rachunek.czyProduktNaRachunku(produkt);
 	}
 
-	public int podajIlosc() {
-		// TODO - implement Aplikacja.podajIlosc
-		throw new UnsupportedOperationException();
-	}
+//	public int podajIlosc() {
+//		// TODO - implement Aplikacja.podajIlosc
+//		throw new UnsupportedOperationException();
+//	}
 
-	public static boolean sprawdzCzyIloscJestDostępna(Produkt produkt, int ilosc) {
+	public boolean sprawdzCzyIloscJestDostępna(Produkt produkt, int ilosc) {
 		if (produkt.getLiczba() >= ilosc){
 			return true;
 		}else{
@@ -145,12 +147,12 @@ public class Aplikacja {
 		}
 	}
 
-	public boolean zapytajCzyKoniecZakupow() {
-		// TODO - implement Aplikacja.zapytajCzyKoniecZakupow
-		throw new UnsupportedOperationException();
-	}
+//	public boolean zapytajCzyKoniecZakupow() {
+//		// TODO - implement Aplikacja.zapytajCzyKoniecZakupow
+//		throw new UnsupportedOperationException();
+//	}
 
-	public static void wybierzProdukt() {
+	public void wybierzProdukt() {
 		System.out.println("######################## Wybierasz produkt #######################");
 
 		System.out.print("Podaj nazwe produktu: ");
@@ -187,14 +189,14 @@ public class Aplikacja {
 		}
 	}
 
-	public static void potwierdzZakup() {
+	public void potwierdzZakup() {
 		System.out.println("######################## Koniec zakupow #######################");
 		DaneDostawy daneDostawy = podajDaneDostawy();
 		Rachunek obecnyRachunek = rachunki.get(rachunki.size()-1);
 		wystawRachunek(obecnyRachunek, daneDostawy);
 	}
 
-	private static DaneDostawy podajDaneDostawy() {
+	private  DaneDostawy podajDaneDostawy() {
 		System.out.print("Imie: ");
 		programInput.nextLine();
 		String imie = programInput.nextLine();
@@ -217,11 +219,11 @@ public class Aplikacja {
 		return noweDane;
 	}
 
-	private static void wystawRachunek(Rachunek rachunek, DaneDostawy daneDostawy) {
+	private void wystawRachunek(Rachunek rachunek, DaneDostawy daneDostawy) {
 		rachunek.wystaw(daneDostawy);
 	}
 
-	public static void zarzadzaj() {
+	public void zarzadzaj() {
 		// Zmienne pomocnicze
 		Integer choosenActivity;
 		Boolean continueProgram = true;
@@ -270,7 +272,7 @@ public class Aplikacja {
 		}
 	}
 
-	public static void dodajProdukt() {
+	public void dodajProdukt() {
 		// Dodaj produkt
 		String nazwa, kategoriaPodatkowa;
 		int liczba;
@@ -301,7 +303,7 @@ public class Aplikacja {
 		}
 	}
 
-	public static void usunProdukt() {
+	public void usunProdukt() {
 		System.out.println("######################## Usuwasz produkt #######################");
 		System.out.print("Nazwa produktu: ");
 		programInput.nextLine();
@@ -318,7 +320,7 @@ public class Aplikacja {
 		System.out.println("Produkt chyba nie został usuniety, mozliwa zla nazwa");
 	}
 
-	public static void zmienCene() {
+	public void zmienCene() {
 		String nazwa, kategoriaPodatkowa;
 		float cena;
 
@@ -339,14 +341,14 @@ public class Aplikacja {
 		}
 	}
 
-	public static void pokazRabaty() {
+	public void pokazRabaty() {
 		System.out.println("######################## Rabaty #######################");
 		for(Rabat rabat: rabaty){
 			System.out.println(rabat.toString());
 		}
 	}
 
-	public static void dodajRabat() {
+	public void dodajRabat() {
 		System.out.println("######################## Dodajesz rabat #######################");
 		System.out.print("Wartosc rabatu: ");
 		float wartosc = programInput.nextFloat();
@@ -361,7 +363,7 @@ public class Aplikacja {
 	}
 
 
-	public static void usunRabat() {
+	public void usunRabat() {
 		System.out.println("######################## Usuwasz rabat #######################");
 		System.out.print("Numer rabatu: ");
 		int numer = programInput.nextInt();
@@ -376,7 +378,7 @@ public class Aplikacja {
 		System.out.println("Rabat chyba nie został usuniety, sprawdz indeks");
 	}
 
-	public static void inicjacja(){
+	public void inicjacja(){
 
 		// Dodaje produkty
 		ArrayList<String> nazwyProduktow = new ArrayList<>(List.of("Pilka tenisowa", "Kapielowki meskie", "Stroj kapielowy damski", "Baton bialkowy"));
@@ -406,7 +408,7 @@ public class Aplikacja {
 		}
 	}
 
-	public static void wczytaj(){
+	public void wczytaj(){
 		ObjectInputStream inputStream;
 		try
 		{
@@ -455,7 +457,7 @@ public class Aplikacja {
 		{}
 	}
 
-	public static void zapisz(){
+	public void zapisz(){
 		try
 		{
 			// RACHUNKI
