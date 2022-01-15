@@ -18,8 +18,8 @@ public class Magazyn implements Serializable {
 
 	public Magazyn() {}
 
-	public void setProdukty(Produkt produkty) {
-		this.produkty = (List<Produkt>) produkty;
+	public void setProdukty(ArrayList<Produkt> produkty) {
+		this.produkty = produkty;
 	}
 
 	public void dodajProdukt(Produkt produktDoDodania) {

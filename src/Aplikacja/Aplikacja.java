@@ -496,4 +496,28 @@ public class Aplikacja {
 		}
 	}
 
+	public Magazyn getMagazyn() {
+		return magazyn;
+	}
+
+	public void setMagazyn(Magazyn magazyn) {
+		this.magazyn = magazyn;
+	}
+
+	public List<Rabat> getRabaty() {
+		return rabaty;
+	}
+
+	public void setRabaty(List<Rabat> rabaty) {
+		this.rabaty = rabaty;
+	}
+
+	public List<Rachunek> getRachunki() {
+		return rachunki;
+	}
+
+	public void setRachunki(List<Rachunek> rachunki) {
+		this.rachunki = rachunki;
+	}
+
 }

@@ -26,6 +26,9 @@ public class Produkt implements Serializable {
 
 	public void zmniejszIlosc(int ilosc) {
 		this.liczba -= ilosc;
+		if (this.liczba < 0){
+			this.liczba = 0;
+		}
 	}
 
 	public String getNazwa() {
