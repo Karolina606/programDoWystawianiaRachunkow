@@ -44,10 +44,6 @@ public class MagazynTest {
 		magazyny = new ArrayList<>();
 	}
 
-//	@Test
-//	public void getProdukty() {
-//	}
-
 	@Test
 	public void test1SetProdukty() {
 		System.out.println("Test ustawienia produktow w magazynie: Magazyn");
@@ -66,11 +62,6 @@ public class MagazynTest {
 
 		assertEquals(dane.magazyny[numer1/2].getProdukty(), magazyn.getProdukty());
 	}
-
-//	@Test
-//	public void dodajProdukt() {
-//
-//	}
 
 	@Test
 	public void test2UsunProdukt() {
@@ -93,4 +84,13 @@ public class MagazynTest {
 		Produkt result = magazyny.get(numer1/2).znadzProdukt(nazwaSzukanegoProduktu);
 		assertNull(result);
 	}
+
+	//	@Test
+//	public void getProdukty() {
+//	}
+
+//	@Test
+//	public void dodajProdukt() {
+//
+//	}
 }

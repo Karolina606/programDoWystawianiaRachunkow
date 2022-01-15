@@ -2,6 +2,7 @@ package Test;
 
 import Aplikacja.Model.Magazyn.Magazyn;
 import Aplikacja.Model.Magazyn.Produkt;
+import Aplikacja.Model.Magazyn.Rabat;
 import Aplikacja.Model.Zakupy.Rachunek;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class Dane {
 		"D"
 	};
 
-	public Produkt produkty[] = {
+	public Produkt[] produkty = {
 		new Produkt(nazwyProduktow[0], 30, cenyProduktow[0], katPodatkowa[0]),
 		new Produkt(nazwyProduktow[1], 12, cenyProduktow[1], katPodatkowa[0]),
 		new Produkt(nazwyProduktow[2], 15, cenyProduktow[2], katPodatkowa[0]),
@@ -167,5 +168,21 @@ public class Dane {
 		rachunki[3].dodajZakup(produkty[7], 2, null);
 	}
 
+	public ArrayList<Rabat> rabaty = new ArrayList<>();
+
+	public void setUpRabaty(){
+		rabaty.add(new Rabat(1, new ArrayList<String>(Arrays.asList(produkty[0].getNazwa(), produkty[1].getNazwa()))));
+		rabaty.add(new Rabat(3, new ArrayList<String>(Arrays.asList(produkty[2].getNazwa(), produkty[3].getNazwa()))));
+		rabaty.add(new Rabat(1, new ArrayList<String>(Arrays.asList(produkty[4].getNazwa(), produkty[5].getNazwa()))));
+		rabaty.add(new Rabat(3, new ArrayList<String>(Arrays.asList(produkty[6].getNazwa(), produkty[7].getNazwa()))));
+	}
+
+	public float[] sumyRachunkow = {
+			65.97f, 139.97f, 159.97f, 9.97f
+	};
+
+	public float[] sumyRabatow = {
+			3.00f, 9.00f, 3.00f, 9.00f
+	};
 
 }

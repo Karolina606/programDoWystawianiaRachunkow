@@ -128,4 +128,22 @@ public class Rachunek implements Serializable {
 	public List<Zakup> getKoszyk() {
 		return koszyk;
 	}
+
+	@Override
+	public String toString() {
+		return "Rachunek{" +
+				", koszyk=" + koszyk +
+				", sumaRachunku=" + sumaRachunku +
+				", sumaRabatu=" + sumaRabatu +
+				", daneDostawy=" + daneDostawy +
+				'}';
+	}
+
+	public float getSumaRachunku() {
+		return sumaRachunku;
+	}
+
+	public float getSumaRabatu() {
+		return sumaRabatu;
+	}
 }

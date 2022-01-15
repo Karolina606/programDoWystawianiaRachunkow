@@ -33,9 +33,6 @@ public class ProduktTest {
 		dane = new Dane();
 	}
 
-//	@Test
-//	public void zmienCene() {
-//	}
 
 	@Test
 	public void zwiekszIlosc() {
@@ -59,6 +56,18 @@ public class ProduktTest {
 		assertEquals(0, result);
 	}
 
+	@Test
+	public void testToString() {
+		System.out.println("Test generowania opisu: Produkt");
+
+		String result = dane.produkty[number1].toString();
+		assertEquals(dane.opisyProduktow[number1], result);
+	}
+
+//	@Test
+//	public void zmienCene() {
+//	}
+
 //	@Test
 //	public void getNazwa() {
 //	}
@@ -74,12 +83,4 @@ public class ProduktTest {
 //	@Test
 //	public void getKategoriaPodatkowa() {
 //	}
-
-	@Test
-	public void testToString() {
-		System.out.println("Test generowania opisu: Produkt");
-
-		String result = dane.produkty[number1].toString();
-		assertEquals(dane.opisyProduktow[number1], result);
-	}
 }

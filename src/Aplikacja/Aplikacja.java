@@ -102,7 +102,7 @@ public class Aplikacja {
 					break;
 				case 2:
 					// Dodaj produkt do koszyka
-					wybierzProdukt();
+					zapytajOWybranyProdukt();
 					break;
 				case 3:
 					// Pokaz koszyk
@@ -110,7 +110,8 @@ public class Aplikacja {
 					break;
 				case 4:
 					// Zakoncz zakupy
-					potwierdzZakup();
+					//potwierdzZakup();
+					zakonczZakupy();
 					czyKoniecZakupow = true;
 					zapisz();
 					break;
@@ -152,7 +153,7 @@ public class Aplikacja {
 //		throw new UnsupportedOperationException();
 //	}
 
-	public void wybierzProdukt() {
+	public void zapytajOWybranyProdukt(){
 		System.out.println("######################## Wybierasz produkt #######################");
 
 		System.out.print("Podaj nazwe produktu: ");
@@ -161,6 +162,11 @@ public class Aplikacja {
 
 		System.out.print("Podaj ilosc: ");
 		int ilosc = Integer.parseInt(programInput.nextLine());
+
+		wybierzProdukt(nazwaProduktu, ilosc);
+	}
+
+	public void wybierzProdukt(String nazwaProduktu, int ilosc) {
 
 		Produkt produktDoZakupu = magazyn.znadzProdukt(nazwaProduktu);
 		Rachunek obecnyRachunek = rachunki.get(rachunki.size()-1);
@@ -189,10 +195,24 @@ public class Aplikacja {
 		}
 	}
 
-	public void potwierdzZakup() {
+	public void zakonczZakupy() {
 		System.out.println("######################## Koniec zakupow #######################");
 		DaneDostawy daneDostawy = podajDaneDostawy();
+
+		potwierdzZakup(daneDostawy);
+	}
+
+	public void potwierdzZakup(DaneDostawy daneDostawy) {
 		Rachunek obecnyRachunek = rachunki.get(rachunki.size()-1);
+
+		for(Zakup zakup: obecnyRachunek.getKoszyk()){
+			for(Rabat rabat: rabaty) {
+				if (rabat.sprawdzCzyProduktMaRabat(zakup)) {
+					zakup.setRabat(rabat);
+				}
+			}
+		}
+
 		wystawRachunek(obecnyRachunek, daneDostawy);
 	}
 
@@ -256,7 +276,8 @@ public class Aplikacja {
 					pokazRabaty();
 					break;
 				case 6:
-					dodajRabat();
+					wyswietlDodawanieRabatu();
+					//dodajRabat();
 					break;
 				case 7:
 					usunRabat();
@@ -348,7 +369,7 @@ public class Aplikacja {
 		}
 	}
 
-	public void dodajRabat() {
+	public void wyswietlDodawanieRabatu(){
 		System.out.println("######################## Dodajesz rabat #######################");
 		System.out.print("Wartosc rabatu: ");
 		float wartosc = programInput.nextFloat();
@@ -358,6 +379,10 @@ public class Aplikacja {
 		String produkty = programInput.nextLine();
 		ArrayList<String> nazwyProduktowZRabatem = new ArrayList<>(List.of(produkty.split(",")));
 
+		dodajRabat(wartosc, nazwyProduktowZRabatem);
+	}
+
+	public void dodajRabat(float wartosc, ArrayList<String> nazwyProduktowZRabatem) {
 		Rabat nowyRabat = new Rabat(wartosc, nazwyProduktowZRabatem);
 		rabaty.add(nowyRabat);
 	}

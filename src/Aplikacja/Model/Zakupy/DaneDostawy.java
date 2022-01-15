@@ -24,6 +24,9 @@ public class DaneDostawy implements Serializable {
 		this.nrTelefonu = nrTelefonu;
 	}
 
+	public DaneDostawy() {
+	}
+
 	@Override
 	public String toString() {
 		return imie + " " + nazwisko + "\n"
