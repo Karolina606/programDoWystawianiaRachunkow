@@ -1,10 +1,11 @@
 package AplikacjaTest.Zakupy;
 
+import Aplikacja.Model.Zakupy.DaneDostawy;
 import Aplikacja.Model.Zakupy.Rachunek;
 import Aplikacja.Model.Zakupy.Zakup;
+import mockit.Expectations;
 import mockit.Injectable;
 import mockit.StrictExpectations;
-import mockit.Tested;
 import mockit.Verifications;
 import mockit.integration.junit4.JMockit;
 import org.junit.Test;
@@ -16,8 +17,8 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(JMockit.class)
 public class RachunekTest1 {
-	@Tested
-	Rachunek rachunek;
+//	@Tested
+//	Rachunek rachunek;
 
 	@Injectable
 	Zakup zakup1, zakup2, zakup3;
@@ -63,7 +64,7 @@ public class RachunekTest1 {
 	}
 
 	@Test
-	public void testObliczWartoscRachunku(){
+	public void testObliczWartoscRachunku(@Injectable DaneDostawy dane){
 		Zakup zakupy[] = {zakup1, zakup2, zakup3};
 		float ceny[] = {5.00f, 8.00f, 20.00f};
 		String katPod[] = {"A", "B", "C"};
@@ -71,21 +72,27 @@ public class RachunekTest1 {
 		System.out.println("Test obliczanie wartości rachunku: Rachunek Mockit");
 		Rachunek rachunek = new Rachunek();
 
-		new StrictExpectations(){
+		new Expectations(){
 			{
-				zakupy[0].getLiczba();		returns(1);
-				zakupy[1].getLiczba();		returns(1);
-				zakupy[2].getLiczba();		returns(1);
-				zakupy[0].getCena();		returns(ceny[0]);
-				zakupy[1].getCena();		returns(ceny[1]);
-				zakupy[2].getCena();		returns(ceny[2]);
-				zakupy[0].getKategoriaPodatkowa();		returns(ceny[0]);
-				zakupy[1].getKategoriaPodatkowa();		returns(ceny[1]);
-				zakupy[2].getKategoriaPodatkowa();		returns(ceny[2]);
+				zakupy[0].getCena();					returns(ceny[0]);
+				zakupy[0].getRabat();					returns(null);
+				zakupy[0].getLiczba();					returns(1);
+				zakupy[0].getKategoriaPodatkowa();		returns(katPod[0]);
+
+				zakupy[1].getCena();					returns(ceny[1]);
+				zakupy[1].getRabat();					returns(null);
+				zakupy[1].getLiczba();					returns(1);
+				zakupy[1].getKategoriaPodatkowa();		returns(katPod[1]);
+
+				zakupy[2].getCena();					returns(ceny[2]);
+				zakupy[2].getRabat();					returns(null);
+				zakupy[2].getLiczba();					returns(1);
+				zakupy[2].getKategoriaPodatkowa();		returns(katPod[2]);
 			}
 		};
 
 		rachunek.setKoszyk(Arrays.asList(zakupy));
+		rachunek.wystaw(dane);
 
 		assertEquals(33.00f, rachunek.getSumaRachunku(), 0.0f);
 	}
