@@ -1,4 +1,4 @@
-package Test;
+package AplikacjaTest;
 
 public interface TestControl {
 }

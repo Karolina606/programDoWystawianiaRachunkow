@@ -1,4 +1,4 @@
-package Suite;
+package AplikacjaTest.Suite;
 
 import AplikacjaTest.AplikacjaTest;
 import AplikacjaTest.Model.Magazyn.MagazynTest;

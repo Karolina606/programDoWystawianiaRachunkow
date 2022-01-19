@@ -1,4 +1,4 @@
-package Test;
+package AplikacjaTest;
 
 import Aplikacja.Aplikacja;
 import Aplikacja.Model.Magazyn.Magazyn;

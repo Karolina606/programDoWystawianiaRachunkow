@@ -1,4 +1,4 @@
-package Test;
+package AplikacjaTest;
 
 import Aplikacja.Model.Magazyn.Magazyn;
 import Aplikacja.Model.Magazyn.Produkt;
@@ -7,7 +7,6 @@ import Aplikacja.Model.Zakupy.Rachunek;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Dane {
 
